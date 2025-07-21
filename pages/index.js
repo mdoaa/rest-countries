@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState , useEffect} from "react";
 import { DataContext } from "../contexts/DataContext";
 import { ThemeContext } from "../contexts/ThemeContext";
 import Header from "../components/Header";
@@ -21,6 +21,13 @@ export default function Home() {
     console.log("Filtered Country:", filteredCountries);
     setSearchResults(filteredCountries);
   };
+
+  useEffect(() => {
+    const filteredCountries = countries.filter((country) =>
+      country.name.common.toLowerCase().includes(searchTerm.toLowerCase()))
+    setSearchResults(filteredCountries)
+    
+  }, [searchTerm, countries]);
 
   const handleRegionFilter = (e) => {
     const selectedRegion = e.target.value;
